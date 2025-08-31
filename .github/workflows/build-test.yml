@@ -1,4 +1,4 @@
-name: Verify Polling Service Container Builds
+name: Test Docker Container Build
 
 on:
   push:
@@ -10,11 +10,4 @@ on:
 
 jobs:
   verify-docker-build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Build Docker image
-        run: docker build -t polling-service-test .
+    uses: ChaosCantrip/DestinyTCG/.github/workflows/build-test.yml@main

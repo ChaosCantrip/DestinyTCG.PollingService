@@ -1,3 +1,5 @@
+name: "Sync dev Branch with main"
+
 on:
   push:
     branches:
@@ -5,26 +7,4 @@ on:
 
 jobs:
   sync-dev:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Configure Git
-        run: |
-          git config user.name "ChaosCantrip [Automated]"
-          git config user.email "dev@chaoscantrip.com"
-
-      - name: Fetch all branches
-        run: git fetch origin
-
-      - name: Checkout `dev`
-        run: git checkout dev
-
-      - name: Merge `main` into `dev`
-        run: git merge origin/main --no-edit
-
-      - name: Push to `dev`
-        run: git push origin dev
+    uses: ChaosCantrip/DestinyTCG/.github/workflows/update-dev.yml@main

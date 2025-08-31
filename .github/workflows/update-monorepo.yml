@@ -7,42 +7,10 @@ on:
 
 jobs:
   update-monorepo:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout submodule repo (this repo)
-        uses: actions/checkout@v3
-
-      - name: Configure git
-        run: |
-          git config user.name "ChaosCantrip [Automated]"
-          git config user.email "dev@chaoscantrip.com"
-
-      - name: Clone monorepo
-        run: |
-          git clone https://x-access-token:${{ secrets.MONOREPO_READ_PAT }}@github.com/ChaosCantrip/DestinyTCG.git
-
-      - name: Sync submodule
-        working-directory: DestinyTCG
-        run: |
-          git submodule sync apps/polling-service
-          git submodule update --init apps/polling-service
-
-      - name: Update submodule pointer
-        working-directory: DestinyTCG/apps/polling-service
-        run: |
-          git fetch origin ${{ github.sha }}
-          git checkout ${{ github.sha }}
-
-      - name: Commit changes
-        working-directory: DestinyTCG
-        run: |
-          git add apps/polling-service
-          SHORT_SHA=$(cd apps/polling-service && git rev-parse --short HEAD)
-          git commit -m "Update polling-service submodule to ${SHORT_SHA}" || echo "No changes to commit"
-
-      - name: Set write PAT and push to monorepo
-        working-directory: DestinyTCG
-        run: |
-          git remote set-url origin https://x-access-token:${{ secrets.MONOREPO_WRITE_PAT }}@github.com/ChaosCantrip/DestinyTCG.git
-          git push origin main
+    uses: ChaosCantrip/DestinyTCG/.github/workflows/update-monorepo.yml@main
+    with:
+      commit-sha: ${{ github.sha }}
+      submodule-reference: "polling-service"
+    secrets:
+      monorepo-read-pat: ${{ secrets.MONOREPO_READ_PAT }}
+      monorepo-write-pat: ${{ secrets.MONOREPO_WRITE_PAT }}
