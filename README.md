@@ -1,0 +1,1 @@
+# DestinyTCG Polling Service
