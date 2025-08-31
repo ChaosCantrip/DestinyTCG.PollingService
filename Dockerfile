@@ -1,10 +1,21 @@
-FROM node:18-alpine
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 
 COPY package.json package-lock.json* ./
 RUN npm ci
 
-COPY . .
+COPY tsconfig.json ./
+COPY src ./src
+RUN npm run build
 
-CMD ["node", "src/index.js"]
+FROM node:18-alpine AS runner
+
+WORKDIR /app
+
+COPY --from=builder /app/package.json /app/package-lock.json* ./
+COPY --from=builder /app/dist ./dist
+
+RUN npm ci --omit=dev
+
+CMD ["node", "dist/index.js"]
