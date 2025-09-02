@@ -1,0 +1,20 @@
+name: DestinyTCG Submodule Workflow
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - main
+
+jobs:
+  submodule-workflow:
+    if: github.event.pull_request.merged == true
+    uses: ChaosCantrip/DestinyTCG/.github/workflows/submodule-workflow.yml@main
+    with:
+      pr-number: ${{ github.event.pull_request.number }}
+      commit-sha: ${{ github.event.pull_request.head.sha }}
+      submodule-reference: "polling-service"
+      pr-labels: ${{ join(github.event.pull_request.labels.*.name, ',') }}
+    secrets:
+      monorepo-read-pat: ${{ secrets.MONOREPO_READ_PAT }}
+      monorepo-write-pat: ${{ secrets.MONOREPO_WRITE_PAT }}
