@@ -1,28 +1,9 @@
 name: Test Docker Container Build
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - "src/**"
-      - "package.json"
-      - "package-lock.json"
-      - ".eslintrc.*"
-      - "Dockerfile"
-      - ".gitignore"
-      - "tsconfig.json"
   pull_request:
     branches:
       - main
-    paths:
-      - "src/**"
-      - "package.json"
-      - "package-lock.json"
-      - ".eslintrc.*"
-      - "Dockerfile"
-      - ".gitignore"
-      - "tsconfig.json"
 
 jobs:
   verify-docker-build:
