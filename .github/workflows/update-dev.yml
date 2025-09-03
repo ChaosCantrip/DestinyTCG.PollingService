@@ -1,0 +1,15 @@
+name: Update dev Branch from main
+
+
+on:
+  push:
+    branches:
+      - main
+  workflow_run:
+    workflows: ["Set Version Number", "Bump Version Number"]
+    types: [completed]
+
+
+jobs:
+  update-dev-branch:
+    uses: ChaosCantrip/DestinyTCG/.github/workflows/update-dev.yml@main
