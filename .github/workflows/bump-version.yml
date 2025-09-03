@@ -1,0 +1,40 @@
+name: Bump Version Number
+
+
+on:
+  workflow_dispatch:
+    inputs:
+      update-type:
+        description: "The type of update to apply"
+        default: patch
+        required: true
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+      version-file:
+        description: "The file containing the version number"
+        default: "version.json"
+        required: false
+        type: string
+      username:
+        description: "The username to use for git"
+        default: "ChaosCantrip [Automated]"
+        required: false
+        type: string
+      email:
+        description: "The email to use for git"
+        default: "dev@chaoscantrip.com"
+        required: false
+        type: string
+
+
+jobs:
+  bump-version-number:
+    uses: ChaosCantrip/DestinyTCG/.github/workflows/bump-version.yml@main
+    with:
+      update-type: ${{ github.event.inputs.update-type }}
+      version-file: ${{ github.event.inputs.version-file }}
+      username: ${{ github.event.inputs.username }}
+      email: ${{ github.event.inputs.email }}
