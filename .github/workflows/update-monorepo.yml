@@ -1,0 +1,21 @@
+name: Update Monorepo from main
+
+
+on:
+  push:
+    branches:
+      - main
+  workflow_run:
+    workflows: ["Set Version Number", "Bump Version Number"]
+    types: [completed]
+
+
+jobs:
+  update-monorepo:
+    uses: ChaosCantrip/DestinyTCG/.github/workflows/update-monorepo.yml@main
+    with:
+      commit-sha: ${{ github.sha }}
+      submodule-reference: "website"
+    secrets:
+      monorepo-read-pat: ${{ secrets.MONOREPO_READ_PAT }}
+      monorepo-write-pat: ${{ secrets.MONOREPO_WRITE_PAT }}
