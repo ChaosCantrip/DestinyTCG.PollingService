@@ -18,7 +18,14 @@ export default defineConfig([
       "brace-style": ["warn", "allman"],
       "quotes": ["warn", "double"],
       "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": "warn"
+      "@typescript-eslint/no-unused-vars": "warn",
+      "indent": ["warn", 4]
+    }
+  },
+  {
+    files: ["**/*.{mjs,mts}"],
+    rules: {
+      "indent": ["warn", 2]
     }
   }
 ]);
