@@ -4,6 +4,7 @@ import tseslint from "typescript-eslint";
 import { defineConfig } from "eslint/config";
 
 export default defineConfig([
+  tseslint.configs.recommended,
   {
     files: ["**/*.{js,mjs,cjs,ts,mts,cts}"],
     plugins: {
@@ -15,7 +16,9 @@ export default defineConfig([
     },
     rules: {
       "brace-style": ["warn", "allman"],
+      "quotes": ["warn", "double"],
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": "warn"
     }
-  },
-  tseslint.configs.recommended,
+  }
 ]);
