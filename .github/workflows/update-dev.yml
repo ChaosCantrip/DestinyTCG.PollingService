@@ -1,13 +1,10 @@
-name: Update dev Branch from main
+name: Merge main into dev
 
 
 on:
   push:
     branches:
       - main
-  workflow_run:
-    workflows: ["Set Version Number", "Bump Version Number"]
-    types: [completed]
 
 
 jobs:
