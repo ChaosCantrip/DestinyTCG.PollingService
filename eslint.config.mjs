@@ -25,13 +25,13 @@ export default defineConfig([
       "quotes": ["warn", "double"],
       "no-unused-vars": "off",
       "@typescript-eslint/no-unused-vars": "warn",
-      "indent": ["warn", 4]
+      "indent": ["warn", 4, { "SwitchCase": 1 }]
     }
   },
   {
     files: ["**/*.{mjs,mts}"],
     rules: {
-      "indent": ["warn", 2]
+      "indent": ["warn", 2, { "SwitchCase": 1 }]
     }
   }
 ]);
